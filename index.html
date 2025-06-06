@@ -183,7 +183,7 @@
         .official-site-button:hover {
             background-color: #9a3412; /* Naranja más oscuro (Tailwind: bg-orange-800) */
         }
-        /* Estilo para el nuevo botón "JJ Arango" */
+        /* Estilo para el botón "JJ Arango" */
         .jjarango-button {
             background-color: #15803d; /* Verde (Tailwind: bg-green-700) */
             color: white;
@@ -214,6 +214,34 @@
             text-overflow: ellipsis; /* Añade puntos suspensivos si el texto se corta */
             max-width: calc(100% - 20px); /* Evita que se salga del contenedor del iframe */
         }
+        /* Estilo para el nuevo botón "RASTREO ALTERNATIVO" */
+        .alternative-tracker-button {
+            background-color: #ef4444; /* Rojo brillante (Tailwind: bg-red-500) */
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.6); /* Sombra para el efecto brillante */
+            animation: pulse-red 2s infinite;
+        }
+        .alternative-tracker-button:hover {
+            background-color: #dc2626; /* Rojo más oscuro (Tailwind: bg-red-600) */
+        }
+        @keyframes pulse-red {
+            0% {
+                box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(239, 68, 68, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 h-screen flex flex-col">
@@ -223,6 +251,13 @@
             Desde <span class="text-yellow-300">Cali</span>, Colombia: SEGUIMIENTO A LA FLOTILLA DE LA LIBERTAD
         </h1>
         <div class="flex items-center space-x-2">
+            <!-- Nuevo botón de rastreo alternativo -->
+            <a href="https://live.garmin.com/session/e162481b-5edc-800e-a915-dbc858405701/token/11A26E3BB58A3E22459C99D6B2E5E5D"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="alternative-tracker-button text-sm sm:text-base">
+                RASTREO ALTERNATIVO
+            </a>
             <button id="infoButton" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-3 sm:px-4 rounded-lg text-sm sm:text-base transition-colors duration-150">
                 INFO
             </button>
@@ -235,7 +270,6 @@
                 </svg>
                 LA FLOTILLA EN X
             </a>
-            <!-- Botón "Sitio Oficial" actualizado a un enlace directo -->
             <a href="https://freedomflotilla.org/es/home-espanol/"
                target="_blank"
                rel="noopener noreferrer"
@@ -258,8 +292,9 @@
                     Enlace al seguimiento
                 </a>
         </iframe>
+        <!-- Texto superpuesto actualizado -->
         <div class="overlay-text">
-            Madleen Tracker | Don’t lose the Madleen [Barcarole]. Track her journey for safety, accountability, and solidarity
+            Si no ve la posición del bote en este mapa, haga clic en el botón RASTREO ALTERNATIVO
         </div>
     </main>
 
@@ -334,8 +369,6 @@
         </div>
     </div>
 
-    <!-- El modal del sitio oficial ha sido eliminado -->
-
     <script>
         // --- Script para recarga periódica del iframe ---
         /* Se deja comentado por ahora */
@@ -394,8 +427,6 @@
         } else {
             console.error('No se pudieron encontrar los elementos del modal "Elaborado por".');
         }
-
-        // --- El script para el modal del sitio oficial ha sido eliminado ---
         
         // --- Script para el Modal del sitio JJ Arango ---
         const jjarangoSiteButton = document.getElementById('jjarangoSiteButton');
@@ -425,3 +456,4 @@
     </script>
 </body>
 </html>
+
