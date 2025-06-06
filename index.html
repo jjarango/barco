@@ -72,7 +72,7 @@
             max-width: 400px; 
             text-align: center;
         }
-        /* Estilo para modales que contienen iframes (Sitio Oficial, JJ Arango) */
+        /* Estilo para modales que contienen iframes (solo para JJ Arango ahora) */
         .website-modal-content { 
             max-width: 90%; 
             width: 90vw;
@@ -179,7 +179,6 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            cursor: pointer; 
         }
         .official-site-button:hover {
             background-color: #9a3412; /* Naranja más oscuro (Tailwind: bg-orange-800) */
@@ -236,13 +235,16 @@
                 </svg>
                 LA FLOTILLA EN X
             </a>
-            <button id="officialSiteButton" class="official-site-button text-sm sm:text-base">
+            <!-- Botón "Sitio Oficial" actualizado a un enlace directo -->
+            <a href="https://freedomflotilla.org/es/home-espanol/"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="official-site-button text-sm sm:text-base">
                 SITIO OFICIAL
-            </button>
+            </a>
         </div>
     </header>
 
-    <!-- Contenedor principal del iframe ahora con position: relative -->
     <main class="flex-grow overflow-hidden bg-white relative">
         <iframe
             id="garminLiveFrame"
@@ -256,7 +258,6 @@
                     Enlace al seguimiento
                 </a>
         </iframe>
-        <!-- Texto superpuesto -->
         <div class="overlay-text">
             Madleen Tracker | Don’t lose the Madleen [Barcarole]. Track her journey for safety, accountability, and solidarity
         </div>
@@ -316,23 +317,6 @@
         </div>
     </div>
 
-    <!-- Modal para el Sitio Oficial -->
-    <div id="officialSiteModalOverlay" class="modal-overlay">
-        <div class="modal-content website-modal-content"> 
-            <button id="closeOfficialSiteModalButton" class="modal-close-button">&times;</button>
-            <iframe id="officialSiteIframe" 
-                    src="" 
-                    title="Sitio Oficial de Freedom Flotilla"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                <p>Tu navegador no soporta iframes o el sitio web no permite ser incrustado. 
-                   Por favor, visita <a href="https://freedomflotilla.org/es/home-espanol/" target="_blank" rel="noopener noreferrer" class="text-sky-600 hover:text-sky-800 underline">el sitio oficial directamente</a>.
-                </p>
-            </iframe>
-        </div>
-    </div>
-
     <!-- Modal para el sitio JJ Arango -->
     <div id="jjarangoSiteModalOverlay" class="modal-overlay">
         <div class="modal-content website-modal-content"> 
@@ -350,35 +334,11 @@
         </div>
     </div>
 
+    <!-- El modal del sitio oficial ha sido eliminado -->
 
     <script>
         // --- Script para recarga periódica del iframe ---
-        // Se comenta la recarga automática ya que el nuevo tracker podría no necesitarla o incluso presentar problemas con ella.
-        // Si se desea reactivar, descomentar las siguientes líneas.
-        /*
-        const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutos
-        function refreshGarminIframe() {
-            const iframeElement = document.getElementById('garminLiveFrame');
-            if (iframeElement) {
-                const currentSrc = iframeElement.src;
-                iframeElement.src = 'about:blank'; 
-                setTimeout(() => {
-                    iframeElement.src = currentSrc;
-                    console.log('Iframe de seguimiento recargado a las: ' + new Date().toLocaleTimeString());
-                }, 100); 
-            } else {
-                console.error('No se encontró el iframe con id "garminLiveFrame".');
-            }
-        }
-        let firstLoad = true;
-        setInterval(() => {
-            if (!firstLoad) {
-                refreshGarminIframe();
-            }
-            firstLoad = false;
-        }, REFRESH_INTERVAL_MS);
-        console.log(`El iframe de seguimiento se recargará cada ${REFRESH_INTERVAL_MS / 60000} minutos después de la carga inicial.`);
-        */
+        /* Se deja comentado por ahora */
 
         // --- Funciones Genéricas para Modales ---
         function openModal(modalOverlayElement, iframeSrc) {
@@ -435,21 +395,7 @@
             console.error('No se pudieron encontrar los elementos del modal "Elaborado por".');
         }
 
-        // --- Script para el Modal del Sitio Oficial ---
-        const officialSiteButton = document.getElementById('officialSiteButton');
-        const officialSiteModalOverlay = document.getElementById('officialSiteModalOverlay');
-        const closeOfficialSiteModalButton = document.getElementById('closeOfficialSiteModalButton');
-        const officialSiteUrl = 'https://freedomflotilla.org/es/home-espanol/';
-
-        if (officialSiteButton && officialSiteModalOverlay && closeOfficialSiteModalButton) {
-            officialSiteButton.addEventListener('click', () => openModal(officialSiteModalOverlay, officialSiteUrl));
-            closeOfficialSiteModalButton.addEventListener('click', () => closeModal(officialSiteModalOverlay));
-            officialSiteModalOverlay.addEventListener('click', (event) => {
-                if (event.target === officialSiteModalOverlay) closeModal(officialSiteModalOverlay);
-            });
-        } else {
-            console.error('No se pudieron encontrar los elementos del modal del Sitio Oficial.');
-        }
+        // --- El script para el modal del sitio oficial ha sido eliminado ---
         
         // --- Script para el Modal del sitio JJ Arango ---
         const jjarangoSiteButton = document.getElementById('jjarangoSiteButton');
