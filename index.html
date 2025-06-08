@@ -67,6 +67,22 @@
             max-height: 85vh;
             overflow-y: auto; /* Para el contenido del modal si es largo */
         }
+        /* Estilo para el modal de advertencia */
+        .warning-modal-content {
+            background-color: #1e3a8a; /* Azul oscuro */
+            border: 3px solid #facc15; /* Borde amarillo */
+            color: #fde047; /* Texto amarillo */
+            max-width: 600px;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .warning-modal-content .modal-close-button {
+            color: #fde047;
+            background-color: transparent;
+            box-shadow: none;
+            top: 15px;
+            right: 15px;
+        }
         /* Estilo específico para el modal de autoría, más pequeño */
         .autor-modal-content {
             max-width: 400px; 
@@ -292,7 +308,6 @@
                     Enlace al seguimiento
                 </a>
         </iframe>
-        <!-- Texto superpuesto actualizado -->
         <div class="overlay-text">
             Si no ve la posición del bote en este mapa, haga clic en el botón RASTREO ALTERNATIVO
         </div>
@@ -306,6 +321,19 @@
             JJ Arango
         </button>
     </footer>
+    
+    <!-- Modal de Advertencia (visible al cargar) -->
+    <div id="warningAlertOverlay" class="modal-overlay active">
+        <div class="modal-content warning-modal-content">
+            <button id="closeWarningAlertButton" class="modal-close-button">&times;</button>
+            <p class="text-xl sm:text-2xl font-bold leading-relaxed">
+                ES POSIBLE QUE EL SISTEMA DE RASTREO ESTÉ SIENDO MANIPULADO.
+                <br><br>
+                SUGIERO CONFRONTAR CON OTRAS FUENTES
+            </p>
+        </div>
+    </div>
+
 
     <!-- Modal de Información -->
     <div id="infoModalOverlay" class="modal-overlay">
@@ -397,6 +425,19 @@
                 }
             }
         }
+        
+        // --- Script para el Modal de Advertencia ---
+        const warningAlertOverlay = document.getElementById('warningAlertOverlay');
+        const closeWarningAlertButton = document.getElementById('closeWarningAlertButton');
+
+        if (warningAlertOverlay && closeWarningAlertButton) {
+            closeWarningAlertButton.addEventListener('click', () => closeModal(warningAlertOverlay));
+            warningAlertOverlay.addEventListener('click', (event) => {
+                if(event.target === warningAlertOverlay) {
+                    closeModal(warningAlertOverlay);
+                }
+            });
+        }
 
         // --- Script para el Modal de Información ---
         const infoButton = document.getElementById('infoButton');
@@ -456,4 +497,3 @@
     </script>
 </body>
 </html>
-
