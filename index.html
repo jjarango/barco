@@ -3,497 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desde Cali, Colombia: SEGUIMIENTO A LA FLOTILLA DE LA LIBERTAD</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Página No Relevante</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
-            font-family: 'Inter', sans-serif;
-        }
-        .iframe-container { 
+            height: 100vh;
+            background-color: #330000;
             display: flex;
-            flex-direction: column;
-            height: 100vh; 
-            overflow: hidden; 
-        }
-        #garminLiveFrame { 
-            flex-grow: 1;
-            width: 100%;
-            height: 100%; 
-            border: none;
-        }
-        .page-footer { 
-            background-color: #1f2937; /* bg-gray-800 */
-            padding: 0.5rem; /* p-2 */
-            text-align: center;
-            flex-shrink: 0; 
-            display: flex; /* Para alinear botones en el footer */
-            justify-content: center; /* Centrar botones */
-            align-items: center; /* Alinear verticalmente */
-            gap: 0.5rem; /* Espacio entre botones del footer */
-        }
-
-        /* Estilos para el modal (reutilizados y genéricos) */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            padding: 1rem;
+            align-items: center;
+            font-family: Arial, sans-serif;
         }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 25px;
+        
+        .aviso {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            padding: 40px 60px;
+            border: 3px solid #ff0000;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            width: 95%;
-            max-width: 650px;
-            position: relative;
-            max-height: 85vh;
-            overflow-y: auto; /* Para el contenido del modal si es largo */
-        }
-        /* Estilo para el modal de advertencia */
-        .warning-modal-content {
-            background-color: #1e3a8a; /* Azul oscuro */
-            border: 3px solid #facc15; /* Borde amarillo */
-            color: #fde047; /* Texto amarillo */
-            max-width: 600px;
             text-align: center;
-            padding: 40px 20px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
-        .warning-modal-content .modal-close-button {
-            color: #fde047;
-            background-color: transparent;
-            box-shadow: none;
-            top: 15px;
-            right: 15px;
-        }
-        /* Estilo específico para el modal de autoría, más pequeño */
-        .autor-modal-content {
-            max-width: 400px; 
-            text-align: center;
-        }
-        /* Estilo para modales que contienen iframes (solo para JJ Arango ahora) */
-        .website-modal-content { 
-            max-width: 90%; 
-            width: 90vw;
-            height: 85vh; 
-            padding: 15px; 
-            display: flex; 
-            flex-direction: column;
-        }
-        .website-modal-content iframe {
-            flex-grow: 1; 
-            border: none;
-            border-radius: 6px; 
-        }
-
-        .modal-close-button {
-            position: absolute;
-            top: 10px; 
-            right: 10px; 
-            background: #fff; 
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 1.5rem;
+        
+        .aviso h1 {
+            margin: 0;
+            font-size: 36px;
             font-weight: bold;
-            cursor: pointer;
-            color: #333;
-            line-height: 30px;
-            text-align: center;
-            z-index: 10; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
-        .website-modal-content .modal-close-button { 
-             top: 5px;
-             right: 5px;
-        }
-
-        .modal-close-button:hover {
-            color: #000;
-            background-color: #f0f0f0;
-        }
-        /* Estilos específicos para el contenido del modal de información */
-        .info-modal-content h2 { 
-            color: #0284c7; 
-            margin-bottom: 0.75rem;
-            font-size: 1.5rem; 
-        }
-        .info-modal-content h3 { 
-            color: #0369a1; 
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem; 
-            border-bottom: 1px solid #e5e7eb; 
-            padding-bottom: 0.25rem;
-        }
-        .info-modal-content p, .info-modal-content li {
-            color: #374151; 
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-        .info-modal-content ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            margin-bottom: 0.75rem;
-        }
-        .info-modal-content blockquote {
-            border-left: 4px solid #0284c7;
-            padding-left: 1rem;
-            margin: 1rem 0;
-            font-style: italic;
-            color: #4b5563;
-        }
-        .info-modal-content .perplexity-note { 
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #4b5563; 
-        }
-         /* Estilo para el botón de X (Twitter) */
-        .twitter-button {
-            background-color: #1DA1F2; /* Color oficial de Twitter/X */
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem 1rem; /* py-2 px-4 */
-            border-radius: 0.5rem; /* rounded-lg */
-            transition: background-color 0.2s ease;
-            text-decoration: none; 
-            display: inline-flex; 
-            align-items: center;
-        }
-        .twitter-button:hover {
-            background-color: #0c85d0; 
-        }
-        .twitter-button svg {
-            margin-right: 0.5rem; 
-        }
-        /* Estilo para el botón "Sitio Oficial" */
-        .official-site-button {
-            background-color: #c2410c; /* Naranja oscuro (Tailwind: bg-orange-700) */
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem 1rem; /* py-2 px-4 */
-            border-radius: 0.5rem; /* rounded-lg */
-            transition: background-color 0.2s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-        }
-        .official-site-button:hover {
-            background-color: #9a3412; /* Naranja más oscuro (Tailwind: bg-orange-800) */
-        }
-        /* Estilo para el botón "JJ Arango" */
-        .jjarango-button {
-            background-color: #15803d; /* Verde (Tailwind: bg-green-700) */
-            color: white;
-            font-weight: bold;
-            padding: 0.25rem 0.75rem; /* py-1 px-3 - igual que el de "Elaborado por" */
-            border-radius: 0.375rem; /* rounded-md - igual que el de "Elaborado por" */
-            font-size: 0.75rem; /* text-xs - igual que el de "Elaborado por" */
-            transition: background-color 0.2s ease;
-            cursor: pointer;
-        }
-        .jjarango-button:hover {
-            background-color: #166534; /* Verde más oscuro (Tailwind: bg-green-800) */
-        }
-        /* Estilo para el texto superpuesto sobre el iframe */
-        .overlay-text {
-            position: absolute;
-            bottom: 10px; /* Distancia desde abajo */
-            left: 10px;  /* Distancia desde la izquierda */
-            background-color: rgba(255, 255, 255, 0.7); /* Fondo semitransparente para legibilidad */
-            color: black;
-            padding: 5px 8px;
-            font-size: 0.75rem; /* 12px */
-            border-radius: 4px;
-            z-index: 10; /* Asegura que esté sobre el iframe */
-            text-align: left; /* Alineación a la izquierda */
-            white-space: nowrap; /* Intenta mantener en una línea */
-            overflow: hidden; /* Oculta el texto que desborda */
-            text-overflow: ellipsis; /* Añade puntos suspensivos si el texto se corta */
-            max-width: calc(100% - 20px); /* Evita que se salga del contenedor del iframe */
-        }
-        /* Estilo para el nuevo botón "RASTREO ALTERNATIVO" */
-        .alternative-tracker-button {
-            background-color: #ef4444; /* Rojo brillante (Tailwind: bg-red-500) */
-            color: white;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.2s ease, box-shadow 0.2s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.6); /* Sombra para el efecto brillante */
-            animation: pulse-red 2s infinite;
-        }
-        .alternative-tracker-button:hover {
-            background-color: #dc2626; /* Rojo más oscuro (Tailwind: bg-red-600) */
-        }
-        @keyframes pulse-red {
-            0% {
-                box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+        
+        @media (max-width: 600px) {
+            .aviso {
+                padding: 30px 40px;
             }
-            50% {
-                box-shadow: 0 0 15px rgba(239, 68, 68, 0.9);
-            }
-            100% {
-                box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+            
+            .aviso h1 {
+                font-size: 24px;
             }
         }
     </style>
 </head>
-<body class="bg-gray-100 h-screen flex flex-col">
-    
-    <header class="bg-sky-700 text-white p-4 shadow-md flex flex-wrap justify-between items-center flex-shrink-0">
-        <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-center flex-grow mb-2 sm:mb-0">
-            Desde <span class="text-yellow-300">Cali</span>, Colombia: SEGUIMIENTO A LA FLOTILLA DE LA LIBERTAD
-        </h1>
-        <div class="flex items-center space-x-2">
-            <!-- Nuevo botón de rastreo alternativo -->
-            <a href="https://live.garmin.com/session/e162481b-5edc-800e-a915-dbc858405701/token/11A26E3BB58A3E22459C99D6B2E5E5D"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="alternative-tracker-button text-sm sm:text-base">
-                RASTREO ALTERNATIVO
-            </a>
-            <button id="infoButton" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-3 sm:px-4 rounded-lg text-sm sm:text-base transition-colors duration-150">
-                INFO
-            </button>
-            <a href="https://x.com/GazaFFlotilla"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="twitter-button text-sm sm:text-base">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-                </svg>
-                LA FLOTILLA EN X
-            </a>
-            <a href="https://freedomflotilla.org/es/home-espanol/"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="official-site-button text-sm sm:text-base">
-                SITIO OFICIAL
-            </a>
-        </div>
-    </header>
-
-    <main class="flex-grow overflow-hidden bg-white relative">
-        <iframe
-            id="garminLiveFrame"
-            src="https://flotilla-orpin.vercel.app/" 
-            title="Seguimiento en vivo de la Flotilla de la Libertad"
-            allowfullscreen
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-                Tu navegador no soporta iframes. Por favor, visita directamente el enlace:
-                <a href="https://flotilla-orpin.vercel.app/">
-                    Enlace al seguimiento
-                </a>
-        </iframe>
-        <div class="overlay-text">
-            Si no ve la posición del bote en este mapa, haga clic en el botón RASTREO ALTERNATIVO
-        </div>
-    </main>
-
-    <footer class="page-footer">
-        <button id="elaboradoPorButton" class="bg-red-600 hover:bg-red-700 text-yellow-300 font-semibold py-1 px-3 rounded-md text-xs transition-colors duration-150">
-            Elaborado por
-        </button>
-        <button id="jjarangoSiteButton" class="jjarango-button">
-            JJ Arango
-        </button>
-    </footer>
-    
-    <!-- Modal de Advertencia (visible al cargar) -->
-    <div id="warningAlertOverlay" class="modal-overlay active">
-        <div class="modal-content warning-modal-content">
-            <button id="closeWarningAlertButton" class="modal-close-button">&times;</button>
-            <p class="text-xl sm:text-2xl font-bold leading-relaxed">
-                ES POSIBLE QUE EL SISTEMA DE RASTREO ESTÉ SIENDO MANIPULADO.
-                <br><br>
-                SUGIERO CONFRONTAR CON OTRAS FUENTES
-            </p>
-        </div>
+<body>
+    <div class="aviso">
+        <h1>ESTA PÁGINA YA NO ES RELEVANTE</h1>
     </div>
-
-
-    <!-- Modal de Información -->
-    <div id="infoModalOverlay" class="modal-overlay">
-        <div class="modal-content info-modal-content"> 
-            <button id="closeInfoModalButton" class="modal-close-button">&times;</button> 
-            <h2>La Flotilla de la Libertad liderada por Greta Thunberg</h2>
-            <p>La llamada "Flotilla de la Libertad" es una iniciativa internacional que busca romper el bloqueo naval impuesto por Israel sobre la Franja de Gaza desde 2007. En junio de 2025, la activista climática sueca Greta Thunberg se unió a esta misión junto a otros 11 activistas, entre ellos el actor irlandés Liam Cunningham (conocido por su papel en "Juego de Tronos") y la eurodiputada franco-palestina Rima Hassan.</p>
-            <h3>Objetivos y contexto</h3>
-            <ul>
-                <li><strong>Propósito principal:</strong> Entregar ayuda humanitaria a la población de Gaza y llamar la atención internacional sobre la crisis humanitaria que vive el enclave palestino bajo asedio.</li>
-                <li><strong>Mensaje político:</strong> Los organizadores y participantes insisten en que la misión no es solo un acto caritativo, sino una protesta no violenta contra lo que consideran un "bloqueo ilegal" y crímenes de guerra cometidos por Israel en Gaza.</li>
-                <li><strong>Cargas simbólicas y reales:</strong> Aunque la ayuda transportada es limitada y simbólica debido a las restricciones logísticas, incluye suministros como fórmula para bebés, harina, arroz, pañales, productos sanitarios femeninos, kits de destilación de agua, muletas y prótesis para niños.</li>
-            </ul>
-            <h3>Detalles de la travesía</h3>
-            <ul>
-                <li><strong>Embarcación:</strong> El velero Madleen, gestionado por la Coalición de la Flotilla de la Libertad, zarpó desde el puerto de Catania, en Sicilia, Italia, el domingo 1 de junio de 2025.</li>
-                <li><strong>Duración estimada:</strong> El viaje hacia Gaza se estima en aproximadamente siete días, siempre que no sean interceptados por las fuerzas israelíes o sufran otras detenciones.</li>
-                <li><strong>Seguridad:</strong> El grupo es consciente de los riesgos. De hecho, un intento anterior de la organización fue frustrado a principios de mayo de 2025, cuando un barco de la flotilla fue atacado por drones en aguas cercanas a Malta, incidente del que responsabilizan a Israel.</li>
-            </ul>
-            <h3>Declaraciones y repercusión</h3>
-            <p>Greta Thunberg, visiblemente emocionada antes de zarpar, declaró:</p>
-            <blockquote>"Estamos haciendo esto porque, sin importar las dificultades, debemos seguir intentándolo. Porque en el instante que dejamos de intentar, perdemos nuestra humanidad. Y, aunque esta misión sea peligrosa, no se compara en absoluto con el silencio del mundo ante el genocidio que se transmite en vivo."</blockquote>
-            <p>La activista y sus compañeros han pedido a la sociedad civil que siga la misión y presione a los gobiernos para exigir el fin del bloqueo y la ocupación en Palestina.</p>
-            <h3>Reacciones y controversia</h3>
-            <ul>
-                <li><strong>Israel:</strong> El gobierno israelí sostiene que el bloqueo naval es una medida de seguridad necesaria para evitar el contrabando de armas hacia Hamas, que gobierna Gaza, y rechaza las acusaciones de genocidio, calificándolas de calumnias y parte de una campaña de deslegitimación.</li>
-                <li><strong>Apoyo internacional:</strong> La acción ha recibido amplia cobertura mediática y ha reavivado el debate global sobre la situación humanitaria en Gaza y la legitimidad del bloqueo.</li>
-            </ul>
-            <h3>Conclusión</h3>
-            <p>La flotilla liderada por Greta Thunberg representa un nuevo esfuerzo internacional para desafiar el bloqueo de Gaza, combinando la entrega simbólica de ayuda humanitaria con una protesta política de alto perfil. El viaje, cargado de riesgos y simbolismo, busca movilizar la opinión pública y ejercer presión sobre los gobiernos para que intervengan en la crisis palestina.</p>
-            <p class="perplexity-note">
-                <strong>Nota: información obtenida con Perplexity</strong>
-            </p>
-        </div>
-    </div>
-
-    <!-- Modal "Elaborado por" -->
-    <div id="elaboradoPorModalOverlay" class="modal-overlay">
-        <div class="modal-content autor-modal-content"> 
-            <button id="closeElaboradoPorModalButton" class="modal-close-button">&times;</button>
-            <p class="text-gray-700 text-md md:text-lg px-4 py-2">
-                Juan José Arango E. + Gemini 2.5 Pro
-            </p>
-        </div>
-    </div>
-
-    <!-- Modal para el sitio JJ Arango -->
-    <div id="jjarangoSiteModalOverlay" class="modal-overlay">
-        <div class="modal-content website-modal-content"> 
-            <button id="closeJjarangoSiteModalButton" class="modal-close-button">&times;</button>
-            <iframe id="jjarangoSiteIframe" 
-                    src="" 
-                    title="Sitio Web de JJ Arango"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                <p>Tu navegador no soporta iframes o el sitio web no permite ser incrustado. 
-                   Por favor, visita <a href="https://www.jjarango.com/" target="_blank" rel="noopener noreferrer" class="text-sky-600 hover:text-sky-800 underline">www.jjarango.com directamente</a>.
-                </p>
-            </iframe>
-        </div>
-    </div>
-
-    <script>
-        // --- Script para recarga periódica del iframe ---
-        /* Se deja comentado por ahora */
-
-        // --- Funciones Genéricas para Modales ---
-        function openModal(modalOverlayElement, iframeSrc) {
-            if (modalOverlayElement) {
-                if (iframeSrc && modalOverlayElement.querySelector('iframe')) {
-                    modalOverlayElement.querySelector('iframe').src = iframeSrc;
-                }
-                modalOverlayElement.classList.add('active');
-                document.body.style.overflow = 'hidden'; 
-            }
-        }
-
-        function closeModal(modalOverlayElement) {
-            if (modalOverlayElement) {
-                modalOverlayElement.classList.remove('active');
-                const iframe = modalOverlayElement.querySelector('iframe');
-                if (iframe) {
-                    iframe.src = 'about:blank'; 
-                }
-                const anyModalActive = document.querySelector('.modal-overlay.active');
-                if (!anyModalActive) {
-                    document.body.style.overflow = '';
-                }
-            }
-        }
-        
-        // --- Script para el Modal de Advertencia ---
-        const warningAlertOverlay = document.getElementById('warningAlertOverlay');
-        const closeWarningAlertButton = document.getElementById('closeWarningAlertButton');
-
-        if (warningAlertOverlay && closeWarningAlertButton) {
-            closeWarningAlertButton.addEventListener('click', () => closeModal(warningAlertOverlay));
-            warningAlertOverlay.addEventListener('click', (event) => {
-                if(event.target === warningAlertOverlay) {
-                    closeModal(warningAlertOverlay);
-                }
-            });
-        }
-
-        // --- Script para el Modal de Información ---
-        const infoButton = document.getElementById('infoButton');
-        const infoModalOverlay = document.getElementById('infoModalOverlay');
-        const closeInfoModalButton = document.getElementById('closeInfoModalButton'); 
-
-        if (infoButton && infoModalOverlay && closeInfoModalButton) {
-            infoButton.addEventListener('click', () => openModal(infoModalOverlay));
-            closeInfoModalButton.addEventListener('click', () => closeModal(infoModalOverlay));
-            infoModalOverlay.addEventListener('click', (event) => {
-                if (event.target === infoModalOverlay) closeModal(infoModalOverlay);
-            });
-        } else {
-            console.error('No se pudieron encontrar los elementos del modal de Información.');
-        }
-
-        // --- Script para el Modal "Elaborado por" ---
-        const elaboradoPorButton = document.getElementById('elaboradoPorButton');
-        const elaboradoPorModalOverlay = document.getElementById('elaboradoPorModalOverlay');
-        const closeElaboradoPorModalButton = document.getElementById('closeElaboradoPorModalButton');
-
-        if (elaboradoPorButton && elaboradoPorModalOverlay && closeElaboradoPorModalButton) {
-            elaboradoPorButton.addEventListener('click', () => openModal(elaboradoPorModalOverlay));
-            closeElaboradoPorModalButton.addEventListener('click', () => closeModal(elaboradoPorModalOverlay));
-            elaboradoPorModalOverlay.addEventListener('click', (event) => {
-                if (event.target === elaboradoPorModalOverlay) closeModal(elaboradoPorModalOverlay);
-            });
-        } else {
-            console.error('No se pudieron encontrar los elementos del modal "Elaborado por".');
-        }
-        
-        // --- Script para el Modal del sitio JJ Arango ---
-        const jjarangoSiteButton = document.getElementById('jjarangoSiteButton');
-        const jjarangoSiteModalOverlay = document.getElementById('jjarangoSiteModalOverlay');
-        const closeJjarangoSiteModalButton = document.getElementById('closeJjarangoSiteModalButton');
-        const jjarangoSiteUrl = 'https://www.jjarango.com/';
-
-        if (jjarangoSiteButton && jjarangoSiteModalOverlay && closeJjarangoSiteModalButton) {
-            jjarangoSiteButton.addEventListener('click', () => openModal(jjarangoSiteModalOverlay, jjarangoSiteUrl));
-            closeJjarangoSiteModalButton.addEventListener('click', () => closeModal(jjarangoSiteModalOverlay));
-            jjarangoSiteModalOverlay.addEventListener('click', (event) => {
-                if (event.target === jjarangoSiteModalOverlay) closeModal(jjarangoSiteModalOverlay);
-            });
-        } else {
-            console.error('No se pudieron encontrar los elementos del modal del sitio JJ Arango.');
-        }
-        
-        // --- Manejo de tecla Escape para cerrar modales activos ---
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                const activeModal = document.querySelector('.modal-overlay.active');
-                if (activeModal) {
-                    closeModal(activeModal);
-                }
-            }
-        });
-    </script>
 </body>
 </html>
